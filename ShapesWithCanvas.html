@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<button onclick="DrawSquare()" title="checks if word is on the list.">S</button>
+<button onclick="DrawCircle()" title="checks if word is on the list.">C</button>
+<br>
+
+<canvas id="canvas"></canvas>
+<script>
+var canvas, c;
+var Width, Height;
+let mouse = {
+    x: 10,
+    y: 10
+};
+let shape;//this changes according to related shape for animation.
+
+
+function DrawCircle() {
+    canvas = document.getElementById("canvas");
+    Width = canvas.width = window.innerWidth;
+    Height = canvas.height = window.innerHeight;
+    c = canvas.getContext("2d");
+    shape = new Circle(10, 10, 30, 'black');
+    animate();
+}
+
+function DrawSquare() {
+    canvas = document.getElementById("canvas");
+    Width = canvas.width = window.innerWidth;
+    Height = canvas.height = window.innerHeight;
+    c = canvas.getContext("2d");
+    shape = new Square(30,30,30);
+    animate();
+}
+
+//Draw a circle
+function Circle(x, y, radius, color) {
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = color;
+
+    this.update = function () {
+        this.draw();
+    };
+
+    this.draw = function () {
+        c.beginPath();
+        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        c.fillStyle = this.color;
+        c.fill();
+        c.stroke();
+        c.closePath();
+    };
+}
+
+//Draw a square
+function Square(x,y,k) {
+    this.x = x;
+	this.y=y;
+	this.k=k;
+
+    this.update = function () {
+        this.draw();
+    };
+	this.draw = function () {
+		c.beginPath();
+		c.fillRect(this.x,this.y,this.k,this.k);
+        c.stroke();
+        c.closePath();
+	}
+}
+
+
+window.addEventListener('mousemove', function (event) {
+    mouse.x = event.clientX;
+    mouse.y = event.clientY;
+});
+
+//Animation function according to moves of mouse.
+function animate() {
+    requestAnimationFrame(animate);//I wish perform an animation for related shape and then i used this method to provide this operation.
+    c.clearRect(0, 0, Width, Height);//Clear canvas
+    shape.x = mouse.x;
+    shape.y = mouse.y;
+    shape.update();
+}
+
+</script>
+</body>
+
+</html>
