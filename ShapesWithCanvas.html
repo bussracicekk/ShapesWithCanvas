@@ -15,21 +15,18 @@ let mouse = {
 };
 let shape;//this changes according to related shape for animation.
 
+canvas = document.getElementById("canvas");
+Width = canvas.width = window.innerWidth;
+Height = canvas.height = window.innerHeight;
+c = canvas.getContext("2d");
 
 function DrawCircle() {
-    canvas = document.getElementById("canvas");
-    Width = canvas.width = window.innerWidth;
-    Height = canvas.height = window.innerHeight;
-    c = canvas.getContext("2d");
+    
     shape = new Circle(10, 10, 30, 'black');
     animate();
 }
 
 function DrawSquare() {
-    canvas = document.getElementById("canvas");
-    Width = canvas.width = window.innerWidth;
-    Height = canvas.height = window.innerHeight;
-    c = canvas.getContext("2d");
     shape = new Square(30,30,30);
     animate();
 }
